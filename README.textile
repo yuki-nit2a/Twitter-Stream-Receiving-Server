@@ -1,0 +1,89 @@
+h1. What's this?
+
+*This project has been closed at 2011/08/06*
+
+h2. English
+
+The Server Application.
+Using "Twitter Streaming API", "sample method", we receive ever all tweets from public timeline.
+And send received tweets to selectable-processor.
+
+h2. Japanese (日本語)
+
+TwitterのStreaming APIにあるsampleメソッドを使い，public timeline上のツイートを永遠と拾い続け，拾ったツイートを事前に選択されたプロセッサーに送りつけられるような，サーバ・アプリケーション。
+
+
+
+h1. Dependences
+
+* Rake
+* Erlang UTF-8 environment (e.g., on Debian GNU/linux, dpkg-reconfigure locales, to UTF-8), anyhow to run, perhaps can do.
+
+
+
+h1. HOW TO USE
+
+
+h2. Setting up
+
+Before rake or exec app, you have to rewrite access-schemes:
+<pre>vi path/to/app/include/twitter_access_keys.hrl
+vi path/to/app/include/erlang_couchdb.hrl</pre>
+
+Type on shell:
+<pre>git clone git://github.com/yuki-nit2a/Twitter-Stream-Receiving-Server.git
+cd /path/to/this_app/
+rake</pre>
+
+
+
+h2. Commands
+
+h3. Start Twitter Receiving Server
+<pre>application:start(twitter).</pre>
+
+h3. Output stream in a target
+<pre>stream_server:request_stream(raw | couchdb, [utf8_filtering_words]).</pre>
+
+
+h2. Test (type commands on ERL)
+
+h3. Raw Outputing
+<pre>application:start(twitter).
+stream_server:request_stream(raw, ["http", "com"]).</pre>
+
+h3. Save in CouchDB
+<pre>application:start(twitter).
+stream_server:request_stream(couchdb, ["http", "com"]).</pre>
+
+
+h2. Example: Keyword Saving server into CouchDB
+
+See test/keyword_saver.erl, and
+<pre>rake test
+keyword_saver:start</pre>
+or
+<pre>rake test
+erl -run keyword_saver -detached</pre>
+more happily!
+
+
+
+h1. Doodling
+
+When this app created, it hadn't been 5 days yet I started Erlang.
+So I will not modify this in future maybe because re-project it is graceful than modifing.
+
+
+
+h1. Thanks
+
+Tech:
+* Twitter
+* Erlang
+* Ruby
+* CouchDB
+
+Persons:
+* takkun ( http://d.hatena.ne.jp/takkkun/20091016/1255722692 )
+* ne-sachirou ( https://github.com/ne-sachirou )
